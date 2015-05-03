@@ -1,0 +1,11 @@
+name: 'shelf_redis_session_store'
+version: 0.0.1
+description: A web server built using the shelf package.
+author: takyam <takayuki.yamaguch.m@gmail.com>
+homepage: https://github.com/takyam-git/shelf_redis_session_store
+environment:
+  sdk: '>=1.10.0 <2.0.0'
+dependencies:
+  shelf: any
+  redis: any
+  crypt: any
