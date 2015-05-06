@@ -177,8 +177,9 @@ class RedisSessionStore {
       var cookie = new Cookie(this._sessionCookieName, session.id);
       cookie.httpOnly = true;
       String setCookie = cookie.toString();
-      if (request.headers.containsKey(HttpHeaders.SET_COOKIE)) {
-        setCookie = "${request.headers[HttpHeaders.SET_COOKIE]} ${setCookie}";
+      if (response.headers.containsKey(HttpHeaders.SET_COOKIE)) {
+        setCookie =
+            "${response.headers[HttpHeaders.SET_COOKIE].trimRight().replaceAll(new RegExp(r';$'), '')}; ${setCookie}";
       }
       completer.complete(response.change(headers: {HttpHeaders.SET_COOKIE: setCookie}));
     } else {
