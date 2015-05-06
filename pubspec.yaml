@@ -1,5 +1,5 @@
 name: 'shelf_redis_session_store'
-version: 0.0.1
+version: 0.0.2
 description: A web server built using the shelf package.
 author: takyam <takayuki.yamaguch.m@gmail.com>
 homepage: https://github.com/takyam-git/shelf_redis_session_store
