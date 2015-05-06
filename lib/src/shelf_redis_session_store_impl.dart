@@ -206,7 +206,9 @@ class RedisSessionStore {
     } else if (value is Set) {
       return {SERIALIZED_KEY: "Set", SERIALIZED_VALUE_KEY: this._serializeData((value as Set).toList())};
     } else if (value is Map) {
-      return (value as Map).values.map((Object val) => this._serializeData(val)).toList();
+      var mapData = {};
+      (value as Map).forEach((Object key, Object val) => mapData[key] = this._serializeData(val));
+      return mapData;
     } else if (value is Iterable) {
       return (value as Iterable).map((Object val) => this._serializeData(val)).toList();
     }
@@ -234,7 +236,9 @@ class RedisSessionStore {
         return new Duration(microseconds: innerValue);
       }
     } else if (value is Map) {
-      return (value as Map).values.map((Object val) => this._deserializeData(val)).toList();
+      var mapData = {};
+      (value as Map).forEach((Object key, Object val) => mapData[key] = this._deserializeData(val));
+      return mapData;
     } else if (value is Iterable) {
       return (value as Iterable).map((Object val) => this._deserializeData(val)).toList();
     } else {
