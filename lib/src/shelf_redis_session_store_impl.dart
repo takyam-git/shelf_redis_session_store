@@ -250,8 +250,8 @@ class RedisSessionStore {
     } else {
       try {
         Map<String, Object> sessionData = JSON.decode(rawSession);
-        RedisSession session = new RedisSession(this, (sessionData['id'] as String), (sessionData['isNew'] as bool),
-            data: this._deserialize(sessionData['data']));
+        RedisSession session =
+            new RedisSession(this, (sessionData['id'] as String), false, data: this._deserialize(sessionData['data']));
         completer.complete(session);
       } on FormatException catch (error) {
         completer.completeError(error);
@@ -284,8 +284,7 @@ class RedisSessionStore {
   /// Update session by [RedisSession] instance
   Future<bool> save(RedisSession session) async {
     var completer = new Completer();
-    String sessionJson =
-        JSON.encode({'id': session.id, 'isNew': session.isNew, 'data': this._serialize(session.data),});
+    String sessionJson = JSON.encode({'id': session.id, 'data': this._serialize(session.data),});
     String result = await this._redisCommand.send_object(
         ["SETEX", this._getStoredSessionId(session.id), this._sessionExpireTime.inSeconds.toString(), sessionJson]);
     completer.complete(result.toLowerCase() == 'ok');
