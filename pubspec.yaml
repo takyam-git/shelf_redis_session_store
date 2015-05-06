@@ -6,6 +6,11 @@ homepage: https://github.com/takyam-git/shelf_redis_session_store
 environment:
   sdk: '>=1.10.0 <2.0.0'
 dependencies:
-  shelf: any
-  redis: any
-  crypt: any
+  shelf: ^0.6.1+1
+  redis: ^0.4.3
+  crypt: ^0.0.1
+dev_dependencies:
+  test: ">=0.12.0 <0.13.0"
+transformers:
+- test/pub_serve:
+    $include: test/**_test.dart
